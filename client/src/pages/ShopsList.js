@@ -1,55 +1,28 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import ShopCard from '../components/ShopCard';
-import ShopDetails from '../components/ShopDetails';
+
 
 
 function ShopsList() {
+
+    const shops = useSelector((state)=>state.shops)
+    console.log("shops are:",shops)
+
     return (
-        <Container className='mt-5'>
-            <Row>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-            </Row>
-            <Row>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-            </Row>
-            <Row>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-                <Col sm="12" md="3">
-                    <ShopCard />
-                </Col>
-            </Row>
-        </Container>
+        !shops.length ? <div>loading...</div> : (
+            <Container className='mt-5'>
+                <Row>
+                {shops.map((shop)=>(
+                        <Col key={shop._id} sm="12" md="3">
+                            <ShopCard shop={shop} />
+                        </Col>
+                
+                    ))}
+                    </Row>
+            </Container>
+        )
     );
 }
 

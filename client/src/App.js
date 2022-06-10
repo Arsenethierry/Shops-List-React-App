@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './App.css';
@@ -9,6 +9,8 @@ import { getShops } from './redux/actions/shops';
 
     
 function App() {
+  const [currentId, setCurrentId] = useState(0);
+
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getShops());
@@ -16,9 +18,9 @@ function App() {
 
   return (
     <div className="App">
-      <NavbarComponent />
+      <NavbarComponent currentId={currentId} setCurrentId={setCurrentId} />
       <Routes>
-        <Route path='/' exact element={<Home />} />
+        <Route path='/' exact element={<Home setCurrentId={setCurrentId} />} />
         <Route path='about' element={<Aboutus />} />
       </Routes>
     </div>

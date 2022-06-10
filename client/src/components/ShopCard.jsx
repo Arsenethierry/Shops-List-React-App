@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { CardImg, CardBody, CardText, Card, CardTitle, Button } from 'reactstrap';
 import moment from 'moment';
+import { deleteShop } from '../redux/actions/shops';
 
 
-function ShopCardComponent({ shop }) {
-    return (
+function ShopCardComponents({ shop, setCurrentId }) {
+    const dispatch = useDispatch();
+  return (
         <div className='mt-2'>
         <Card>
           <CardBody>
@@ -31,9 +34,13 @@ function ShopCardComponent({ shop }) {
               A Shop In &nbsp; {shop.area} 
             </CardTitle>
           </CardBody>
+          <CardBody>
+            <Button size='sm' color='danger' onClick={()=> dispatch(deleteShop(shop._id))}>Delete</Button>
+            <Button size='sm' color='info' className='ms-5' onClick={()=> setCurrentId(shop._id)}>Update</Button>
+          </CardBody>
         </Card>
         </div>
     );
 }
 
-export default ShopCardComponent;
+export default ShopCardComponents;

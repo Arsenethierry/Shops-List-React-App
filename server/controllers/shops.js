@@ -27,5 +27,27 @@ export const createShop = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+export const updateShop = async (req, res) => {
+    const { id } = req.params;
+    const { name, owner, area,categories,selectedFile } = req.body;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    const updatedShop = { name, owner, area,categories,selectedFile, _id: id };
+
+    await ShopModel.findByIdAndUpdate(id, updatedShop, { new: true });
+
+    res.json(updatedShop);
+}
+
+export const deleteShop = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    await ShopModel.findByIdAndRemove(id);
+
+    res.json({ message: "Shop deleted successfully." });
+}
 
 export default router;

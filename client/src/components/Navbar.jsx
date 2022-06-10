@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { Link, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, 
   NavItem, Button, NavLink, Modal, ModalBody, ModalHeader, FormGroup, Label, 
   Input, Form, FormText } from "reactstrap";
-import { useDispatch } from 'react-redux';
-import { createShop } from '../redux/actions/shops';
+import { useDispatch, useSelector } from 'react-redux';
+import { createShop, updateShop } from '../redux/actions/shops';
 
 
-function NavbarComponent() {
+function NavbarComponent({ currentId, setCurrentId }) {
 
   const [isNavOpen,setIsNavOpen] = useState(false);
   const [isModalOpen,setIsModalOpen] = useState(false);
   const [shopData,setShopData] = useState({ area: '', name: '', categories: '', selectedFile: '', openingAt: '', closingAt: '' })
-  
+  const shop = useSelector((state) => (currentId ? state.shops.find((p) => p._id === currentId) : null));
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (shop) setShopData(shop);
+  }, [shop]);
 
   const toggleNav = ()=>{
     setIsNavOpen(()=>!isNavOpen);
@@ -26,7 +32,11 @@ function NavbarComponent() {
   const handdleSubmit = (e)=>{
     e.preventDefault();
 
-    dispatch(createShop(shopData));
+    if(currentId === 0){
+      dispatch(createShop(shopData));
+    }else{
+      dispatch(updateShop(currentId, shopData));
+    }
     toggleModal();
     navigate('/');
   }
@@ -67,7 +77,7 @@ function NavbarComponent() {
             </Collapse>
           </Navbar>
           <Modal isOpen={isModalOpen} toggle={toggleModal}>
-            <ModalHeader> Add Shop</ModalHeader>
+            <ModalHeader>{currentId ? `Editing "${shop.name}"` : 'Creating a New Shop'}</ModalHeader>
             <ModalBody>
               <Form onSubmit={handdleSubmit}>
                 <FormGroup>

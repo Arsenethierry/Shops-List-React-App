@@ -7,12 +7,10 @@ const shopSchema = mongoose.Schema({
   categories: [String],
   selectedFile: String,
   openingAt: {
-    type: Date,
-    default: new Date(),
+    type: Date
   },
   closingAt: {
-    type: Date,
-    default: new Date(),
+    type: Date
   },
 });
 

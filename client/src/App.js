@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import './App.css';
 import NavbarComponent from './components/Navbar';
 import Home from './pages/Home';
-import ShopsList from './pages/ShopsList';
 import Aboutus from './pages/Aboutus';
 import { getShops } from './redux/actions/shops';
 
@@ -19,8 +18,7 @@ function App() {
     <div className="App">
       <NavbarComponent />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='shops' element={<ShopsList />} />
+        <Route path='/' exact element={<Home />} />
         <Route path='about' element={<Aboutus />} />
       </Routes>
     </div>

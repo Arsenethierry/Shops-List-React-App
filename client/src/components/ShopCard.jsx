@@ -3,7 +3,7 @@ import { CardImg, CardBody, CardText, Card, CardTitle, Button } from 'reactstrap
 import moment from 'moment';
 
 
-function ShopCard({ shop }) {
+function ShopCardComponent({ shop }) {
     return (
         <div className='mt-2'>
         <Card>
@@ -13,7 +13,7 @@ function ShopCard({ shop }) {
             </CardTitle>
             <CardText>
               <small className="text-muted">
-                {shop.area} &emsp; {moment(shop.openingAt).format("dddd, MMMM Do YYYY")}-{moment(shop.closingAt).format("dddd, MMMM Do YYYY")}
+              {moment(shop.openingAt).format("dddd, MMMM Do YYYY")}-{moment(shop.closingAt).format("dddd, MMMM Do YYYY")}
               </small>
             </CardText>
             <CardText>
@@ -27,12 +27,13 @@ function ShopCard({ shop }) {
             width="100%"
           />
           <CardBody>
-            <Button color='danger' size='sm'>Delete</Button>
-            <Button color='info' size='sm' className='ms-5'>Update</Button>
+            <CardTitle>
+              A Shop In &nbsp; {shop.area} 
+            </CardTitle>
           </CardBody>
         </Card>
         </div>
     );
 }
 
-export default ShopCard;
+export default ShopCardComponent;

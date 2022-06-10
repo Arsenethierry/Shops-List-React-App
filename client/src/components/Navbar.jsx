@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FileBase from 'react-file-base64';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, 
   NavItem, Button, NavLink, Modal, ModalBody, ModalHeader, FormGroup, Label, 
   Input, Form, FormText } from "reactstrap";
@@ -15,6 +15,7 @@ function NavbarComponent() {
   const [shopData,setShopData] = useState({ area: '', name: '', categories: '', selectedFile: '', openingAt: '', closingAt: '' })
   
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const toggleNav = ()=>{
     setIsNavOpen(()=>!isNavOpen);
@@ -26,6 +27,8 @@ function NavbarComponent() {
     e.preventDefault();
 
     dispatch(createShop(shopData));
+    toggleModal();
+    navigate('/');
   }
     return (
         <>
@@ -45,13 +48,6 @@ function NavbarComponent() {
                 </NavLink>
               </NavItem>
               </Link>
-              <Link to="shops" style={{ textDecoration: 'none' }}>
-              <NavItem>
-                <NavLink>
-                  Shops
-                </NavLink>
-              </NavItem>
-              </Link>
               <Link to="about" style={{ textDecoration: 'none' }}>
               <NavItem>
                 <NavLink>
@@ -62,11 +58,11 @@ function NavbarComponent() {
               </Nav>
               <Nav>
                 <NavItem>
-                <Input type="search" class="form-control rounded " placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <Button color="info" onClick={toggleModal}>Add Shop</Button>
                 </NavItem>
               </Nav>
-              <NavItem className='list-unstyled ps-5'>
-                <Button color="info" onClick={toggleModal}>Add Shop</Button>
+              <NavItem className='list-unstyled ps-3'>
+                <Button color="info">Log In</Button>
               </NavItem>
             </Collapse>
           </Navbar>

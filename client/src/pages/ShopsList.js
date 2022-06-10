@@ -8,7 +8,6 @@ import ShopCard from '../components/ShopCard';
 function ShopsList() {
 
     const shops = useSelector((state)=>state.shops)
-    console.log("shops are:",shops)
 
     return (
         !shops.length ? <div>loading...</div> : (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './App.css';
@@ -11,8 +11,9 @@ import { getShops } from './redux/actions/shops';
     
 function App() {
   const dispatch = useDispatch();
-
+  useEffect(()=>{
     dispatch(getShops());
+  },[dispatch]);
 
   return (
     <div className="App">

@@ -1,9 +1,9 @@
 import React from 'react';
-import { CardImg, CardBody, CardText, Card, CardTitle } from 'reactstrap';
+import { CardImg, CardBody, CardText, Card, CardTitle, Button } from 'reactstrap';
+import moment from 'moment';
 
 
 function ShopCard({ shop }) {
-  console.log("in card",shop.area)
     return (
         <div className='mt-2'>
         <Card>
@@ -13,7 +13,7 @@ function ShopCard({ shop }) {
             </CardTitle>
             <CardText>
               <small className="text-muted">
-                {shop.area}
+                {shop.area} &emsp; {moment(shop.openingAt).format("dddd, MMMM Do YYYY")}-{moment(shop.closingAt).format("dddd, MMMM Do YYYY")}
               </small>
             </CardText>
             <CardText>
@@ -21,11 +21,15 @@ function ShopCard({ shop }) {
             </CardText>
           </CardBody>
           <CardImg
-            alt="Card image cap"
+            alt={shop.name}
             bottom
-            src="https://picsum.photos/318/180"
+            src={shop.selectedFile || 'https://images.pexels.com/photos/2079438/pexels-photo-2079438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
             width="100%"
           />
+          <CardBody>
+            <Button color='danger' size='sm'>Delete</Button>
+            <Button color='info' size='sm' className='ms-5'>Update</Button>
+          </CardBody>
         </Card>
         </div>
     );

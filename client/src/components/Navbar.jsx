@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem,
-  Button, NavLink
+  Button, NavLink, Modal, ModalBody, ModalHeader, FormGroup, Label, Input, Form
 } from "reactstrap";
 
 
 function NavbarComponent() {
   const [isNavOpen,setIsNavOpen] = useState(false);
+  const [isModalOpen,setIsModalOpen] = useState(false);
+
 
   const toggleNav = ()=>{
     setIsNavOpen(()=>!isNavOpen);
   }
   const toggleModal = ()=>{
+    setIsModalOpen(()=> !isModalOpen);
+  }
+  const handdleSubmit = ()=>{
 
   }
     return (
@@ -60,6 +65,30 @@ function NavbarComponent() {
               </NavItem>
             </Collapse>
           </Navbar>
+          <Modal isOpen={isModalOpen} toggle={toggleModal}>
+            <ModalHeader> Add Shop</ModalHeader>
+            <ModalBody>
+              <Form onSubmit={handdleSubmit}>
+                <FormGroup>
+                  <Label htmlFor='shopname'>Shop name</Label>
+                  <Input type="text" id='shopname' name='shopname' placeholder="Enter Name Of Shop" />           
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor='area'>Location Area</Label>
+                  <Input type="text" id='area' name='area' placeholder="Enter location" />           
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor='area'>Location Area</Label>
+                  <Input type="text" id='area' name='area' placeholder="Enter location" />           
+                </FormGroup>
+                <FormGroup>
+                  <Button type='submit' value='submit' color='primary' >
+                      Add
+                  </Button>
+                </FormGroup>
+              </Form>
+            </ModalBody>
+          </Modal>
         </>
     );
 }
